@@ -2,7 +2,7 @@
 pragma solidity ^0.8.25;
 
 import "forge-std/Test.sol";
-import "../src/PolyverseFinance.sol";
+import "../src/MultiverseFactory.sol";
 
 /* ----------  Mock parent ERC‑20 (mintable)  ---------- */
 contract TestERC20 is ERC20 {
@@ -35,17 +35,17 @@ contract OracleMock is IUmaCtfAdapter {
 contract MultiverseVaultTest is Test {
     TestERC20                 parent;
     OracleMock                oracle;
-    MultiverseTokensFactory   factory;
+    MultiverseFactory         factory;
     MultiverseVault           vault;
-    VerseToken                yes;
-    VerseToken                no;
+    IERC20                    yes;
+    IERC20                    no;
 
     bytes32 constant QID = keccak256("dummy-qid");
 
     function setUp() public {
         parent  = new TestERC20("Wrapped ETH", "WETH", 18);
         oracle  = new OracleMock();
-        factory = new MultiverseTokensFactory();
+        factory = new MultiverseFactory();
 
         (address vaultAddr, address yesT, address noT) =
             factory.partition(parent, oracle, QID);

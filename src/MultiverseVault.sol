@@ -106,33 +106,3 @@ contract MultiverseVault {
         resolved = true;
     }
 }
-
-/* ----------  Factory  ---------- */
-contract MultiverseTokensFactory {
-    event VaultCreated(
-        IERC20   indexed parentToken,
-        bytes32  indexed questionId,
-        address  vault,
-        address  yesToken,
-        address  noToken
-    );
-
-    function partition(
-        IERC20 parentToken,
-        IUmaCtfAdapter oracle,
-        bytes32 questionId
-    )
-        external
-        returns (
-            address vault,
-            address yesToken,
-            address noToken
-        )
-    {
-        MultiverseVault v = new MultiverseVault(parentToken, oracle, questionId);
-        vault    = address(v);
-        yesToken = v.yesToken();
-        noToken  = v.noToken();
-        emit VaultCreated(parentToken, questionId, vault, yesToken, noToken);
-    }
-}

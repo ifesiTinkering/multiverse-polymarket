@@ -1,8 +1,8 @@
-// SPDX‑License‑Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
 import "forge-std/Test.sol";
-import "../src/PolyverseFinance.sol";
+import "../src/MultiverseFactory.sol";
 
 interface IERC20Meta is IERC20 { function decimals() external view returns (uint8); }
 
@@ -22,7 +22,7 @@ contract PolygonForkTest is Test {
 
         weth = IERC20Meta(WETH);
 
-        MultiverseTokensFactory factory = new MultiverseTokensFactory();
+        MultiverseFactory factory = new MultiverseFactory();
         (address vAddr, address y, address n) =
             factory.partition(weth, IUmaCtfAdapter(ORACLE), QID);
 

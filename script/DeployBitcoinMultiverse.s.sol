@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
 import "forge-std/Script.sol";
@@ -23,13 +23,13 @@ contract DeployBitcoinMultiverse is Script {
          * ----------------------------------------------------------------- */
 
         IERC20Meta parentToken = IERC20Meta(0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619); // Polygon WETH
-        IUmaCtfAdapter oracle =
-            IUmaCtfAdapter(0x2F5e3684cb1F318ec51b00Edba38d79Ac2c0aA9d);
+        IERC20Meta usdcToken   = IERC20Meta(0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174); // polygon USD token so we can have USD vault too
+        IUmaCtfAdapter oracle = IUmaCtfAdapter(0x2F5e3684cb1F318ec51b00Edba38d79Ac2c0aA9d);
         bytes32 qid = 0xcd4dac4522cab9b4feb28ac67acac37b0fc42a6ba71514f6ff1614842bf68c3f;
 
+            
         MultiverseFactory factory = new MultiverseFactory();
-        (address vaultAddr, address yesToken, address noToken) =
-            factory.partition(parentToken, oracle, qid);
+        (address vaultAddr, address yesToken, address noToken) = factory.partition(parentToken, oracle, qid);
 
         MultiverseVault vault = MultiverseVault(vaultAddr);
 
@@ -49,6 +49,27 @@ contract DeployBitcoinMultiverse is Script {
         // Settle remaining 0.0005 WETH by burning 0.0005 NO (settledPrice = 1)
         VerseToken(noToken).approve(vaultAddr, half);
         vault.settle(half);
+
+
+
+
+ /* ───────────────────────── 2️⃣  USDC vault  ───────────────────────── */
+
+        // Create / fetch the deterministic vault for USDC
+        (address usdcVaultAddr, address usdcYesTok, address usdcNoTok) =
+            factory.partition(usdcToken, oracle, qid);
+
+        MultiverseVault usdcVault = MultiverseVault(usdcVaultAddr);
+
+        // Push-down 10 USDC  (USDC has 6 decimals → 10 × 1e6)
+        uint256 usdcAmount = 100_000 ;
+       usdcToken.approve(usdcVaultAddr, usdcAmount);
+        usdcVault.pushDown(usdcAmount);                  // mints 10 YES + 10 NO
+        usdcVault.pullUp(usdcAmount); 
+        // (Optional) replicate pullUp / settle on USDC side just like above
+        // VerseToken(usdcYesTok).approve(usdcVaultAddr, 5 * 1e5); … etc.
+
+
 
         vm.stopBroadcast();
     }

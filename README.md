@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This essay examines the evolution of prediction markets through the lens of market structure, liquidity dynamics, and economic value transfer. By analyzing Kalshi's parlay data and comparing it to traditional sportsbook models, we identify how exchange-based prediction markets create value differently than traditional betting platforms. We then explore how this evolution might progress toward more sophisticated financial ecosystems.
+This doc examines the evolution of prediction markets through the lens of market structure, liquidity dynamics, and economic value transfer. By analyzing Kalshi's parlay data and comparing it to traditional sportsbook models, we identify how exchange-based prediction markets create value differently than traditional betting platforms. We then explore how this evolution might progress toward more sophisticated financial ecosystems.
 
 ## Introduction
 

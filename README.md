@@ -100,7 +100,7 @@ The key insight: "there is no problem when using notFiredUSD as collateral to bo
 
 ## Implementation Analysis: Conditional Tokens vs. Multiverse Vault Architecture
 
-This repository implements an alternative approach to conditional token systems, independently developed but converging on similar conceptual foundations as the Conditional Tokens Framework. Both systems implement the same financial primitive—splitting collateral into outcome-contingent positions that can be recombined—but make different architectural trade-offs.
+This repository is not intended as a full production alternative to the Conditional Tokens Framework. Rather, it represents a thought experiment exploring different architectural approaches to conditional token systems. The implementation was developed independently but converges on similar conceptual foundations as Conditional Tokens. Both systems implement the same financial primitive—splitting collateral into outcome-contingent positions that can be recombined—but make different architectural trade-offs that illuminate the design space for Step 3 multiverse finance applications.
 
 ### Convergent Design Patterns
 
@@ -157,6 +157,38 @@ For Step 3's goal of "conditional USD to borrow conditional ETH, provide liquidi
 
 Both implementations successfully create the fundamental primitive—tradeable conditional positions—that bridges Step 2's liquid secondary markets and Step 3's conditional financial ecosystems. The choice between them represents a classic engineering trade-off: efficiency and generality versus immediate composability and ecosystem compatibility.
 
+## Future Directions
+
+### Polymarket's Parlay Evolution and the NFL Partnership
+
+The theoretical framework presented here—particularly the progression from locked parlays to liquid secondary markets—faces practical testing through Polymarket's recent initiatives. The platform's partnership with the NFL represents a significant development for parlay market liquidity[^12].
+
+Traditional prediction markets suffer from what we might call the "combinatorial liquidity problem": as condition complexity increases, potential participant pools shrink exponentially. A binary Trump election bet might attract millions of dollars in liquidity. A Trump-AND-Bitcoin parlay reduces that pool substantially. A Trump-AND-Bitcoin-AND-S&P parlay reduces it further still. This is why Kalshi's parlay data showed only $806,000 in handle despite the platform's overall volume—complex combinations simply lack depth[^3].
+
+**The NFL liquidity test:**
+
+Sports betting presents an interesting counterpoint. NFL games generate massive engagement with well-understood probabilities and clear resolution timeframes. If Polymarket can build liquid parlay markets anywhere, it will be here. The partnership provides several advantages:
+
+- **High frequency**: 272 regular season games create continuous market opportunities rather than sporadic political events
+- **Familiar correlations**: "Chiefs win AND over 50 points" resonates with casual bettors in ways that "Powell fired AND inflation spikes" does not
+- **Established betting culture**: Unlike political prediction markets, sports parlays are already mainstream products with known demand
+
+**Key questions for observation:**
+
+1. **Does global access solve the liquidity problem?** Polymarket's 300,000+ user base dwarfs Kalshi's 30,000. Will this 10x difference translate to viable liquidity for complex NFL parlays (team X wins AND total score > Y AND player Z scores), or will combinatorial complexity still create thin markets?
+
+2. **Can liquid secondary trading emerge?** The footnote's vision of parlay contracts trading like Credit Default Swaps requires two conditions: sufficient liquidity depth and sophisticated market makers. NFL markets may provide the first real test of whether prediction market parlays can achieve genuine secondary market liquidity rather than remaining buy-and-hold instruments.
+
+3. **What hold rates emerge?** Kalshi's parlay data showed 11% hold (comparable to traditional sportsbooks). Does Polymarket's global model and Conditional Tokens infrastructure allow for tighter spreads through increased competition, or do the same "fish flow" economics persist at scale?
+
+### Implications for Multiverse Finance
+
+The NFL partnership serves as a proving ground for Step 2 → Step 3 progression. If Polymarket successfully creates liquid parlay markets with active secondary trading, it validates the fundamental assumption underlying multiverse finance: that conditional positions can function as tradeable assets rather than terminal bets.
+
+More importantly, it would demonstrate whether the Conditional Tokens Framework's ERC-1155 architecture can achieve sufficient liquidity to serve as a foundation for conditional DeFi ecosystems. The alternative ERC-20 approach explored in this repository assumes conditional tokens will eventually need DeFi composability. But that assumption only matters if Step 2's liquid secondary markets can actually exist at scale.
+
+The next 6-12 months of Polymarket's NFL markets will provide crucial data on whether complex conditional markets can overcome the combinatorial liquidity problem—and whether the path from tradeable parlays to entire conditional financial systems remains theoretical or becomes practical.
+
 ## Conclusion
 
 The progression from DraftKings to potential Multiverse Finance represents increasing degrees of market freedom and sophistication:
@@ -195,3 +227,5 @@ The data shows prediction markets aren't just about forecasting—they're labora
 [^11]: Gnosis. "Conditional Tokens: Developer Guide." Conditional Tokens Documentation. https://conditional-tokens.readthedocs.io/en/latest/developer-guide.html
 
 [^src]: This repository. "MultiverseVault.sol" and "MultiverseFactory.sol." https://github.com/[repository-path]/src/
+
+[^12]: Polymarket. "Polymarket Partners with the NFL." January 14, 2025. https://polymarket.com/blog/polymarket-partners-with-the-nfl
